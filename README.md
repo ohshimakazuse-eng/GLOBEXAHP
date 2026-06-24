@@ -1,47 +1,65 @@
 # 株式会社Globexa — Corporate Website
 
-人を、事業を、未来へ動かす。
+成長を、設計する。
 SNSマーケティング・採用コンサルティング・BPO・リスキリングの4事業を展開する
-株式会社Globexa のコーポレートサイト初稿です。
+株式会社Globexa のコーポレートサイトです。
 
-## デザイン方針
+ボールドな図版カルーセルのヒーロー（ブルー基調）と、それに連動した
+力強いタイポグラフィ（Anton）による一貫したUIで構成しています。
 
-- **Awwwards 受賞水準**を目指したミニマルで上質な editorial デザイン
-- 暖かみのある紙色（warm paper）と深いインクのコントラスト
-- 大胆な余白・大きな明朝体タイポグラフィ
-- カードレイアウトに頼らない、インデックス型の事業一覧
-- 成果から逆算した導線（Philosophy → Services → Approach → Company → Contact）
-- PC / SP ともに破綻しない完全レスポンシブ
+## 技術スタック
+
+- **React 18 + TypeScript**
+- **Vite**（開発サーバー / ビルド）
+- **Tailwind CSS**
+- **lucide-react**（アイコン）
+- Fonts: **Anton**（ディスプレイ） / **Inter**（本文）
 
 ## 構成
 
 ```
-index.html        マークアップ・コピー
-css/style.css     スタイル（デザインシステム）
-js/main.js        ローダー / リビール / アコーディオン / メニュー 等
+index.html                 エントリ（フォント読み込み）
+src/
+  main.tsx                 ルート
+  App.tsx                  ページ構成
+  index.css                Tailwind + アニメーション
+  components/
+    Hero.tsx               図版カルーセル（GLOBEXA ゴーストテキスト / ブルー背景）
+    Nav.tsx                スクロールで現れる固定ナビ
+    Sections.tsx           Marquee / Philosophy / Services / Approach / Stats / Company / Contact
+    Footer.tsx             フッター
+    Reveal.tsx             スクロール連動リビール
 ```
 
-## 主な実装
-
-- オープニングローダー（パーセンテージ・カウント）
-- ヒーローの行送りリビールアニメーション
-- スクロール連動のフェードイン（IntersectionObserver）
-- 事業内容のインデックス型アコーディオン
-- 無限マーキー、数値カウントアップ
-- `prefers-reduced-motion` 対応 / アクセシビリティ配慮
-
-## 確認方法
-
-任意の静的サーバーで `index.html` を開いてください。
+## 開発・確認方法
 
 ```bash
-python3 -m http.server 8000
-# http://localhost:8000
+# 1) 依存をインストール（初回のみ）
+npm install
+
+# 2) 開発サーバーを起動 → ターミナルに出る http://localhost:5173 を開く
+npm run dev
+
+# 本番ビルド
+npm run build
+
+# ビルド結果をローカル確認
+npm run preview
 ```
 
-## フォント
+> 注意: React/Vite アプリのため、HTMLファイルを直接ダブルクリックしても動きません。
+> 上の `npm run dev` で表示してください。
 
-Google Fonts: Shippori Mincho B1 / Cormorant Garamond / Zen Kaku Gothic New
+## ヒーローの仕様
+
+- 4点の図版を `center / left / right / back` のロールで配置し、矢印クリックで回転
+- 背景色・位置・スケール・ぼかし・不透明度が **650ms / cubic-bezier(0.4,0,0.2,1)** で同時にクロスフェード
+- 背面に巨大なゴーストテキスト **「GLOBEXA」**
+- 背景は全スライド **ブルー** で統一
+- グレイン（SVGノイズ）オーバーレイ
+- 矢印キー操作・モバイル対応
+
+> 図版（フィギュア画像）は指定のプレースホルダーです。ブランド用ビジュアルに差し替え可能です。
 
 ---
 
