@@ -5,6 +5,7 @@ import Hero from '../components/Hero'
 import Reveal from '../components/Reveal'
 import { Marquee, SectionTag } from '../components/ui'
 import { Blob, Ring, Dots, Star } from '../components/Shapes'
+import { MEMBERS } from '../data/members'
 
 type Service = {
   no: string
@@ -55,12 +56,6 @@ const SERVICES: Service[] = [
     color: '#FFC44D',
     Icon: Target,
   },
-]
-
-const STATS = [
-  { num: '05', label: '事業領域', en: 'Domains', c: '#FF8A5B' },
-  { num: '2025', label: '創業', en: 'Founded', c: '#4FCB7B' },
-  { num: '∞', label: '可能性', en: 'Possibilities', c: '#FF7AB6' },
 ]
 
 export default function Top() {
@@ -160,23 +155,66 @@ export default function Top() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="bg-white px-4 sm:px-10 py-20 sm:py-28">
-        <div className="max-w-6xl mx-auto grid sm:grid-cols-3 gap-5 sm:gap-7">
-          {STATS.map((s, i) => (
-            <Reveal key={s.label} delay={i * 100}>
-              <div
-                className="rounded-4xl px-6 py-12 text-center text-white"
-                style={{ background: s.c, boxShadow: `0 20px 50px -24px ${s.c}` }}
-              >
-                <div className="font-anton text-7xl sm:text-8xl leading-none">{s.num}</div>
-                <div className="mt-4 font-rounded font-bold text-lg">{s.label}</div>
-                <div className="text-xs uppercase tracking-[0.16em] text-white/70 mt-0.5">
-                  {s.en}
-                </div>
-              </div>
+      {/* Member */}
+      <section className="relative overflow-hidden bg-white px-4 sm:px-10 py-24 sm:py-36">
+        <Blob className="-top-10 -left-12 hidden sm:block" color="#FF7AB6" size={200} />
+        <Dots className="bottom-20 right-8 hidden sm:block" color="#B3D1FF" />
+        <div className="relative max-w-6xl mx-auto">
+          <SectionTag no="03" en="Member" color="#FF7AB6" />
+          <div className="flex flex-wrap items-end justify-between gap-6 mb-12 sm:mb-16">
+            <Reveal>
+              <h2 className="font-anton uppercase leading-[0.92] text-ink text-4xl sm:text-6xl xl:text-7xl">
+                Meet the <span className="text-brand-500">team.</span>
+              </h2>
+              <p className="font-rounded font-bold text-ink/70 text-lg mt-3">
+                挑戦を後押しする、Globexaの仲間たち。
+              </p>
             </Reveal>
-          ))}
+            <Reveal delay={120}>
+              <Link
+                to="/member"
+                className="group inline-flex items-center gap-2 rounded-full border-2 border-brand-200 text-brand-600 px-6 py-3 text-sm font-bold hover:bg-brand-500 hover:border-brand-500 hover:text-white transition-all"
+              >
+                メンバー紹介を見る
+                <ArrowUpRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
+            </Reveal>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-7">
+            {MEMBERS.map((m, i) => (
+              <Reveal key={m.name} delay={(i % 3) * 100}>
+                <article
+                  className="group h-full rounded-4xl bg-white overflow-hidden transition-all duration-300 hover:-translate-y-2"
+                  style={{ boxShadow: '0 18px 50px -28px rgba(20,34,74,0.45)' }}
+                >
+                  <div className="relative aspect-[4/5] overflow-hidden">
+                    <img
+                      src={m.photo}
+                      alt={`${m.name}（${m.roleJa}）`}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <span
+                      className="absolute top-4 left-4 rounded-full px-3.5 py-1.5 text-xs font-bold text-white"
+                      style={{ background: m.color }}
+                    >
+                      {m.roleJa}
+                    </span>
+                  </div>
+                  <div className="p-6 sm:p-7">
+                    <p
+                      className="text-xs font-bold uppercase tracking-[0.16em] mb-1.5"
+                      style={{ color: m.color }}
+                    >
+                      {m.roleEn}
+                    </p>
+                    <h3 className="font-anton text-3xl sm:text-4xl text-ink mb-3">{m.name}</h3>
+                    <p className="text-sm leading-loose text-ink/60 font-medium">{m.note}</p>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
