@@ -208,7 +208,9 @@ export default function Top() {
                     >
                       {m.roleEn}
                     </p>
-                    <h3 className="font-anton text-3xl sm:text-4xl text-ink mb-3">{m.name}</h3>
+                    <h3 className="font-rounded font-black text-2xl sm:text-3xl text-ink mb-3">
+                      {m.name}
+                    </h3>
                     <p className="text-sm leading-loose text-ink/60 font-medium">{m.note}</p>
                   </div>
                 </article>

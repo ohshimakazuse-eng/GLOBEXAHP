@@ -81,10 +81,13 @@ export default function Company() {
               02 — Access &amp; Contact
             </span>
             <Reveal>
-              <h2 className="font-anton uppercase text-4xl sm:text-6xl xl:text-7xl mb-8">
-                西新宿、
-                <br />
-                <span className="text-brand-300">from Tokyo.</span>
+              <h2 className="mb-8">
+                <span className="block font-rounded font-black text-3xl sm:text-5xl">
+                  西新宿から。
+                </span>
+                <span className="block font-anton uppercase text-4xl sm:text-6xl xl:text-7xl text-brand-300">
+                  from Tokyo.
+                </span>
               </h2>
             </Reveal>
             <Reveal delay={100}>

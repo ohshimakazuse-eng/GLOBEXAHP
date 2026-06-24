@@ -39,7 +39,7 @@ export default function Member() {
                 <span className="inline-block rounded-full bg-brand-50 text-brand-600 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] mb-4">
                   {ceo.roleEn} ／ {ceo.roleJa}
                 </span>
-                <h2 className="font-anton uppercase text-ink text-5xl sm:text-7xl leading-none mb-6">
+                <h2 className="font-rounded font-black text-ink text-5xl sm:text-7xl leading-none mb-6">
                   {ceo.name}
                 </h2>
               </Reveal>
@@ -101,7 +101,9 @@ export default function Member() {
                     >
                       {m.roleEn}
                     </p>
-                    <h3 className="font-anton text-3xl sm:text-4xl text-ink mb-3">{m.name}</h3>
+                    <h3 className="font-rounded font-black text-2xl sm:text-3xl text-ink mb-3">
+                      {m.name}
+                    </h3>
                     <p className="text-sm sm:text-base leading-loose text-ink/60 font-medium">
                       {m.note}
                     </p>

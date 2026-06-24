@@ -1,35 +1,19 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
+import Figurine from './Figurine'
 
 /**
  * Character-figurine carousel hero — themed for GLOBEXA.
- * Mechanics follow the original spec exactly (650ms cubic-bezier crossfades,
- * role-based positioning, grain overlay). The four background colors are all
- * blue shades so the hero stays blue as it rotates. Figurine images are the
- * provided placeholders and can be swapped for brand visuals later.
+ * Mechanics: 650ms cubic-bezier crossfades, role-based positioning, grain
+ * overlay, GLOBEXA ghost text, all-blue backgrounds. The figures are original
+ * SVG mascots (see Figurine.tsx) — no third-party art is used.
  */
-const IMAGES = [
-  {
-    src: 'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/1.02464a56.png',
-    bg: '#1D5FD6',
-    panel: '#3A78E0',
-  },
-  {
-    src: 'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/2.b977faab.png',
-    bg: '#2E7BEF',
-    panel: '#4E90F2',
-  },
-  {
-    src: 'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/3.4df853b4.png',
-    bg: '#0E4FC0',
-    panel: '#2E6AD2',
-  },
-  {
-    src: 'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/4.4457fbce.png',
-    bg: '#3D8BFF',
-    panel: '#5C9FFF',
-  },
+const ITEMS = [
+  { bg: '#1D5FD6', panel: '#3A78E0' },
+  { bg: '#2E7BEF', panel: '#4E90F2' },
+  { bg: '#0E4FC0', panel: '#2E6AD2' },
+  { bg: '#3D8BFF', panel: '#5C9FFF' },
 ]
 
 const GRAIN_SVG =
@@ -46,14 +30,6 @@ export default function Hero() {
   const [isMobile, setIsMobile] = useState(
     typeof window !== 'undefined' ? window.innerWidth < 640 : false,
   )
-
-  // Preload all images on mount
-  useEffect(() => {
-    IMAGES.forEach((item) => {
-      const img = new Image()
-      img.src = item.src
-    })
-  }, [])
 
   // Track mobile breakpoint
   useEffect(() => {
@@ -138,7 +114,7 @@ export default function Hero() {
     <div
       id="hero"
       style={{
-        backgroundColor: IMAGES[activeIndex].bg,
+        backgroundColor: ITEMS[activeIndex].bg,
         transition: `background-color 650ms ${EASE}`,
         fontFamily: 'Inter, sans-serif',
       }}
@@ -181,11 +157,11 @@ export default function Hero() {
 
         {/* 4. Carousel */}
         <div className="absolute inset-0" style={{ zIndex: 3 }}>
-          {IMAGES.map((item, i) => {
+          {ITEMS.map((_, i) => {
             const role = roleOf(i)
             return (
               <div
-                key={item.src}
+                key={i}
                 style={{
                   position: 'absolute',
                   aspectRatio: '0.6 / 1',
@@ -194,17 +170,7 @@ export default function Hero() {
                   ...styleFor(role),
                 }}
               >
-                <img
-                  src={item.src}
-                  alt=""
-                  draggable={false}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain',
-                    objectPosition: 'bottom center',
-                  }}
-                />
+                <Figurine variant={i} className="w-full h-full" />
               </div>
             )
           })}
