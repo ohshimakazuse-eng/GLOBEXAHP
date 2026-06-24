@@ -1,35 +1,16 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
+import Figurine from './Figurine'
 
 /**
  * Character-figurine carousel hero — themed for GLOBEXA.
  * Mechanics: 650ms cubic-bezier crossfades, role-based positioning, grain
- * overlay, GLOBEXA ghost text, all-blue backgrounds. The figurine images keep
- * a light "arrangement" applied via CSS (subtle hue/contrast shift + soft
- * shadow) so they read as part of the brand rather than as-is.
+ * overlay, GLOBEXA ghost text, all-blue backgrounds. The four figures are
+ * original SVG "figurine people" (see Figurine.tsx), each with its own outfit,
+ * hair and face — no third-party art is used.
  */
-const IMAGES = [
-  {
-    src: 'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/1.02464a56.png',
-    bg: '#1D5FD6',
-  },
-  {
-    src: 'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/2.b977faab.png',
-    bg: '#2E7BEF',
-  },
-  {
-    src: 'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/3.4df853b4.png',
-    bg: '#0E4FC0',
-  },
-  {
-    src: 'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/4.4457fbce.png',
-    bg: '#3D8BFF',
-  },
-]
-
-// Light "arrangement" so the figures aren't used verbatim.
-const FIGURE_FILTER = 'saturate(1.08) hue-rotate(-10deg) contrast(1.04) drop-shadow(0 26px 30px rgba(8,30,72,0.4))'
+const ITEMS = [{ bg: '#1D5FD6' }, { bg: '#2E7BEF' }, { bg: '#0E4FC0' }, { bg: '#3D8BFF' }]
 
 const GRAIN_SVG =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E"
@@ -51,14 +32,6 @@ export default function Hero() {
     const onResize = () => setIsMobile(window.innerWidth < 640)
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
-  }, [])
-
-  // Preload figurine images on mount
-  useEffect(() => {
-    IMAGES.forEach((item) => {
-      const img = new Image()
-      img.src = item.src
-    })
   }, [])
 
   const navigate = useCallback(
@@ -137,7 +110,7 @@ export default function Hero() {
     <div
       id="hero"
       style={{
-        backgroundColor: IMAGES[activeIndex].bg,
+        backgroundColor: ITEMS[activeIndex].bg,
         transition: `background-color 650ms ${EASE}`,
         fontFamily: 'Inter, sans-serif',
       }}
@@ -180,11 +153,11 @@ export default function Hero() {
 
         {/* 4. Carousel */}
         <div className="absolute inset-0" style={{ zIndex: 3 }}>
-          {IMAGES.map((item, i) => {
+          {ITEMS.map((_, i) => {
             const role = roleOf(i)
             return (
               <div
-                key={item.src}
+                key={i}
                 style={{
                   position: 'absolute',
                   aspectRatio: '0.6 / 1',
@@ -193,18 +166,7 @@ export default function Hero() {
                   ...styleFor(role),
                 }}
               >
-                <img
-                  src={item.src}
-                  alt=""
-                  draggable={false}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain',
-                    objectPosition: 'bottom center',
-                    filter: FIGURE_FILTER,
-                  }}
-                />
+                <Figurine variant={i} className="w-full h-full" />
               </div>
             )
           })}
