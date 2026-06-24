@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 /**
@@ -178,19 +179,6 @@ export default function Hero() {
           </span>
         </div>
 
-        {/* 3. Top-left brand label */}
-        <div
-          className="absolute top-6 left-4 sm:left-8"
-          style={{
-            zIndex: 60,
-            color: '#fff',
-            opacity: 0.9,
-            letterSpacing: '0.18em',
-          }}
-        >
-          <span className="text-xs font-semibold uppercase">GLOBEXA</span>
-        </div>
-
         {/* 4. Carousel */}
         <div className="absolute inset-0" style={{ zIndex: 3 }}>
           {IMAGES.map((item, i) => {
@@ -231,14 +219,14 @@ export default function Hero() {
             className="font-bold uppercase tracking-widest mb-2 sm:mb-3 text-base sm:text-[22px]"
             style={{ color: '#fff', opacity: 0.95, letterSpacing: '0.02em' }}
           >
-            GROWTH, BY DESIGN
+            見えない未来を創る
           </p>
           <p
             className="hidden sm:block text-xs sm:text-sm mb-4 sm:mb-5"
             style={{ color: '#fff', opacity: 0.85, lineHeight: 1.6 }}
           >
-            SNSマーケティング・採用・BPO・リスキリング。私たちは、企業の成長を「人」と「仕組み」の
-            両面から設計します。まずはお気軽にご相談ください。
+            SNSマーケティング・プロモーション・インフルエンサー育成・BPO・採用コンサルティング。
+            誰かが前に進む、そのきっかけになる。私たちはまだ形のない可能性を、行動へと変えていきます。
           </p>
           <div className="flex items-center gap-3">
             <button
@@ -293,8 +281,8 @@ export default function Hero() {
           className="absolute bottom-6 right-4 sm:bottom-20 sm:right-10"
           style={{ zIndex: 60 }}
         >
-          <a
-            href="#contact"
+          <Link
+            to="/company"
             className="flex items-center"
             style={{
               fontFamily: 'Anton, sans-serif',
@@ -313,7 +301,7 @@ export default function Hero() {
           >
             GET IN TOUCH
             <ArrowRight className="w-5 h-5 sm:w-8 sm:h-8" strokeWidth={2.25} />
-          </a>
+          </Link>
         </div>
       </div>
     </div>

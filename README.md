@@ -15,21 +15,41 @@ SNSマーケティング・採用コンサルティング・BPO・リスキリ�
 - **lucide-react**（アイコン）
 - Fonts: **Anton**（ディスプレイ） / **Inter**（本文）
 
+## ページ構成（4ページ / React Router）
+
+| パス | ページ | 内容 |
+| --- | --- | --- |
+| `/#/` | TOP | 図版カルーセルのヒーロー / Mission teaser / 事業一覧 / CTA |
+| `/#/mvv` | MVV | Mission・Vision・Value |
+| `/#/member` | Member | 代表メッセージ / メンバー紹介 |
+| `/#/company` | Company | 会社概要 / アクセス・お問い合わせ |
+
+> ルーティングは静的ホスティングでも安定する **HashRouter**（URLは `/#/mvv` 形式）。
+
 ## 構成
 
 ```
 index.html                 エントリ（フォント読み込み）
 src/
   main.tsx                 ルート
-  App.tsx                  ページ構成
+  App.tsx                  ルーティング（HashRouter）
   index.css                Tailwind + アニメーション
   components/
     Hero.tsx               図版カルーセル（GLOBEXA ゴーストテキスト / ブルー背景）
-    Nav.tsx                スクロールで現れる固定ナビ
-    Sections.tsx           Marquee / Philosophy / Services / Approach / Stats / Company / Contact
-    Footer.tsx             フッター
-    Reveal.tsx             スクロール連動リビール
+    Nav.tsx                固定ナビ（TOPヒーロー上は透過 → スクロール/他ページで濃紺）
+    Layout.tsx             Nav + Footer + ページ遷移時スクロール復帰
+    ui.tsx                 PageHero / SectionTag / Marquee / Grain
+    Footer.tsx / Reveal.tsx
+  pages/
+    Top.tsx / MVV.tsx / Member.tsx / Company.tsx
 ```
+
+## 掲載情報について
+
+会社概要・Mission は globexa.jp 等の公開情報をもとにしています
+（代表：山﨑 星河／設立：2025年7月31日／資本金：100万円／所在地：新宿区西新宿）。
+Vision・Value の文言と Member 情報の一部は、トーンを合わせて作成した**草案**です。
+正式な文言・氏名・写真に差し替えてご利用ください。
 
 ## 開発・確認方法
 

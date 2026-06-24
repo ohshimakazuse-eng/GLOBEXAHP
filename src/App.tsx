@@ -1,31 +1,22 @@
-import Hero from './components/Hero'
-import Nav from './components/Nav'
-import Footer from './components/Footer'
-import {
-  Marquee,
-  Philosophy,
-  Services,
-  Approach,
-  Stats,
-  Company,
-  Contact,
-} from './components/Sections'
+import { HashRouter, Routes, Route } from 'react-router-dom'
+import Layout from './components/Layout'
+import Top from './pages/Top'
+import MVV from './pages/MVV'
+import Member from './pages/Member'
+import Company from './pages/Company'
 
 export default function App() {
   return (
-    <div className="font-inter">
-      <Nav />
-      <main>
-        <Hero />
-        <Marquee />
-        <Philosophy />
-        <Services />
-        <Approach />
-        <Stats />
-        <Company />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <HashRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Top />} />
+          <Route path="/mvv" element={<MVV />} />
+          <Route path="/member" element={<Member />} />
+          <Route path="/company" element={<Company />} />
+          <Route path="*" element={<Top />} />
+        </Route>
+      </Routes>
+    </HashRouter>
   )
 }
