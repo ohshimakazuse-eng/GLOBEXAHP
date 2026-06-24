@@ -1,77 +1,60 @@
 import type { ReactNode } from 'react'
+import { Blob, Ring, Star } from './Shapes'
 
-export const GRAIN_SVG =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E"
-
-export function Grain({ opacity = 0.35 }: { opacity?: number }) {
-  return (
-    <div
-      aria-hidden
-      className="absolute inset-0 pointer-events-none"
-      style={{
-        opacity,
-        backgroundImage: `url("${GRAIN_SVG}")`,
-        backgroundSize: '200px 200px',
-        backgroundRepeat: 'repeat',
-      }}
-    />
-  )
-}
-
+/** Small rounded pill that labels a section, e.g. "01 — Mission". */
 export function SectionTag({
   no,
   en,
-  light = false,
+  color = '#2E7BEF',
 }: {
   no: string
   en: string
-  light?: boolean
+  color?: string
 }) {
   return (
     <div
-      className={`flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.18em] mb-8 sm:mb-14 ${
-        light ? 'text-white/60' : 'text-brand-600'
-      }`}
+      className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-7 sm:mb-12 text-xs font-bold uppercase tracking-[0.14em]"
+      style={{ background: `${color}1A`, color }}
     >
-      <span className={`h-px w-10 sm:w-16 ${light ? 'bg-white/40' : 'bg-brand-400'}`} />
-      <span className="font-anton tracking-normal text-sm">{no}</span>
-      <span className={light ? 'text-white' : 'text-ink'}>{en}</span>
+      <span className="font-anton text-sm tracking-normal">{no}</span>
+      <span className="w-1.5 h-1.5 rounded-full" style={{ background: color }} />
+      <span>{en}</span>
     </div>
   )
 }
 
-/** Big page banner used by sub-pages (MVV / Member / Company). */
+/** Big colorful page banner used by sub-pages (MVV / Member / Company). */
 export function PageHero({
   kicker,
   title,
   lead,
+  accent = '#2E7BEF',
 }: {
   kicker: string
-  title: string
+  title: ReactNode
   lead?: ReactNode
+  accent?: string
 }) {
   return (
-    <header
-      className="relative overflow-hidden text-white px-4 sm:px-10 pt-36 sm:pt-48 pb-16 sm:pb-24"
-      style={{ background: 'linear-gradient(160deg, #2E7BEF 0%, #1149B0 70%, #0A2A66 100%)' }}
-    >
-      <Grain opacity={0.3} />
-      <div
-        aria-hidden
-        className="absolute right-[-6%] top-[8%] font-anton uppercase pointer-events-none select-none leading-none text-white/10"
-        style={{ fontSize: 'clamp(120px, 26vw, 360px)', letterSpacing: '-0.02em' }}
-      >
-        {kicker}
-      </div>
+    <header className="relative overflow-hidden bg-brand-50 px-4 sm:px-10 pt-36 sm:pt-52 pb-20 sm:pb-28">
+      {/* playful floating shapes */}
+      <Blob className="-top-10 -right-10 sm:right-10" color={accent} size={260} />
+      <Ring className="bottom-10 left-[6%]" color="#FF7AB6" size={90} stroke={12} />
+      <Star className="top-28 left-[44%]" color="#FFC44D" size={52} />
       <div className="relative max-w-6xl mx-auto">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-200 mb-5">
+        <span
+          className="inline-block rounded-full px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] mb-6"
+          style={{ background: '#fff', color: accent, boxShadow: '0 10px 30px -12px rgba(20,34,74,0.25)' }}
+        >
           {kicker}
-        </p>
-        <h1 className="font-anton uppercase leading-[0.95] text-6xl sm:text-8xl xl:text-9xl">
+        </span>
+        <h1 className="font-anton uppercase leading-[0.92] text-ink text-6xl sm:text-8xl xl:text-9xl">
           {title}
         </h1>
         {lead && (
-          <p className="mt-7 max-w-2xl text-base sm:text-lg leading-loose text-white/85">{lead}</p>
+          <p className="mt-8 max-w-2xl text-base sm:text-lg leading-loose text-ink/70 font-medium">
+            {lead}
+          </p>
         )}
       </div>
     </header>
@@ -79,18 +62,27 @@ export function PageHero({
 }
 
 /* ─────────────────────────── Marquee ─────────────────────────── */
-const KEYWORDS = ['Social Marketing', 'Promotion', 'Influencer', 'BPO', 'Recruitment']
+const KEYWORDS: { t: string; c: string }[] = [
+  { t: 'Social Marketing', c: '#FF8A5B' },
+  { t: 'Promotion', c: '#4FCB7B' },
+  { t: 'Influencer', c: '#FF7AB6' },
+  { t: 'BPO', c: '#6EB5FF' },
+  { t: 'Recruitment', c: '#FFC44D' },
+]
 export function Marquee() {
   const set = [...KEYWORDS, ...KEYWORDS]
   return (
-    <div className="bg-brand-700 border-y border-white/10 overflow-hidden py-6 sm:py-8">
-      <div className="flex w-max items-center gap-10 animate-marquee whitespace-nowrap">
+    <div className="bg-white border-y-2 border-brand-100 overflow-hidden py-5 sm:py-7">
+      <div className="flex w-max items-center gap-6 animate-marquee whitespace-nowrap">
         {[...set, ...set].map((k, i) => (
-          <span key={i} className="flex items-center gap-10">
-            <span className="font-anton uppercase text-white text-3xl sm:text-5xl tracking-tight">
-              {k}
+          <span key={i} className="flex items-center gap-6">
+            <span
+              className="font-anton uppercase text-3xl sm:text-5xl tracking-tight"
+              style={{ color: k.c }}
+            >
+              {k.t}
             </span>
-            <span className="text-brand-300 text-xl">✦</span>
+            <span className="text-brand-200 text-2xl">✦</span>
           </span>
         ))}
       </div>

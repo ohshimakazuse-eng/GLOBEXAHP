@@ -14,16 +14,16 @@
 
   body {
     margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: #0a2a66;
-    color: #0b1b3a;
+    font-family: 'M PLUS Rounded 1c', 'Inter', sans-serif;
+    background: #ffffff;
+    color: #14224a;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
   }
 
   ::selection {
-    background: #0b1b3a;
+    background: #2e7bef;
     color: #fff;
   }
 }
@@ -34,34 +34,102 @@
   }
 }
 
-/* Marquee */
+/* ── Marquee ── */
 @keyframes marquee {
   to {
     transform: translateX(-50%);
   }
 }
 .animate-marquee {
-  animation: marquee 32s linear infinite;
+  animation: marquee 30s linear infinite;
 }
-@media (prefers-reduced-motion: reduce) {
-  .animate-marquee {
-    animation: none;
+
+/* ── Smooth ambient motion ── */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-22px);
+  }
+}
+@keyframes floatSoft {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-14px) translateX(10px);
+  }
+}
+@keyframes blobMorph {
+  0%,
+  100% {
+    border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%;
+  }
+  50% {
+    border-radius: 58% 42% 38% 62% / 55% 56% 44% 45%;
+  }
+}
+@keyframes spinSlow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
   }
 }
 
-/* Reveal-on-scroll */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+.animate-float-slow {
+  animation: float 9s ease-in-out infinite;
+}
+.animate-float-soft {
+  animation: floatSoft 8s ease-in-out infinite;
+}
+.animate-blob {
+  animation: blobMorph 14s ease-in-out infinite;
+}
+.animate-spin-slow {
+  animation: spinSlow 22s linear infinite;
+}
+.animate-wiggle {
+  animation: wiggle 3.5s ease-in-out infinite;
+}
+
+/* ── Reveal-on-scroll (smooth, slight pop) ── */
 .reveal {
   opacity: 0;
-  transform: translateY(34px);
+  transform: translateY(38px) scale(0.97);
   transition:
-    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
 }
 .reveal.is-in {
   opacity: 1;
   transform: none;
 }
+
 @media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-float,
+  .animate-float-slow,
+  .animate-float-soft,
+  .animate-blob,
+  .animate-spin-slow,
+  .animate-wiggle {
+    animation: none !important;
+  }
   .reveal {
     opacity: 1;
     transform: none;

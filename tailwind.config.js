@@ -6,6 +6,7 @@ export default {
       fontFamily: {
         anton: ['Anton', 'sans-serif'],
         inter: ['Inter', 'sans-serif'],
+        rounded: ['"M PLUS Rounded 1c"', 'Inter', 'sans-serif'],
       },
       colors: {
         brand: {
@@ -20,7 +21,20 @@ export default {
           800: '#0E3A8C',
           900: '#0A2A66',
         },
-        ink: '#0B1B3A',
+        ink: '#14224A',
+        // playful pops, pulled from the hero figurine palette
+        pop: {
+          orange: '#FF8A5B',
+          green: '#4FCB7B',
+          pink: '#FF7AB6',
+          sky: '#6EB5FF',
+          yellow: '#FFC44D',
+          purple: '#9B8CFF',
+        },
+      },
+      borderRadius: {
+        '4xl': '2rem',
+        '5xl': '2.75rem',
       },
     },
   },
