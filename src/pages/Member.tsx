@@ -1,6 +1,5 @@
 import Reveal from '../components/Reveal'
 import { PageHero, SectionTag } from '../components/ui'
-import { Blob, Ring, Dots, Star } from '../components/Shapes'
 import { MEMBERS } from '../data/members'
 
 export default function Member() {
@@ -12,26 +11,20 @@ export default function Member() {
         kicker="Member"
         title="The people behind."
         lead="挑戦を後押しするのは、いつも人。Globexaを動かすメンバーを紹介します。"
-        accent="#FF7AB6"
       />
 
       {/* Representative */}
-      <section className="relative overflow-hidden bg-white px-4 sm:px-10 py-24 sm:py-32">
-        <Star className="top-20 right-[8%] hidden sm:block" color="#FFC44D" size={56} />
-        <Dots className="bottom-16 left-6 hidden sm:block" color="#B3D1FF" />
-        <div className="relative max-w-6xl mx-auto">
-          <SectionTag no="01" en="Representative" color="#2E7BEF" />
+      <section className="bg-white px-4 sm:px-10 py-24 sm:py-32">
+        <div className="max-w-6xl mx-auto">
+          <SectionTag no="01" en="Representative" />
           <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16 items-center">
             <Reveal>
-              <div className="relative">
-                <Blob className="-top-6 -left-6 -z-10" color="#FF7AB6" size={120} />
-                <div className="relative aspect-[4/5] rounded-5xl overflow-hidden shadow-[0_30px_70px_-30px_rgba(20,34,74,0.5)]">
-                  <img
-                    src={ceo.photo}
-                    alt={`${ceo.name}（${ceo.roleJa}）`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-brand-100">
+                <img
+                  src={ceo.photo}
+                  alt={`${ceo.name}（${ceo.roleJa}）`}
+                  className="w-full h-full object-cover"
+                />
               </div>
             </Reveal>
             <div>
@@ -61,45 +54,32 @@ export default function Member() {
       </section>
 
       {/* Team */}
-      <section className="relative overflow-hidden bg-brand-50 px-4 sm:px-10 py-24 sm:py-32">
-        <Ring className="top-20 right-[8%] hidden sm:block" color="#FFC44D" size={88} stroke={12} />
-        <div className="relative max-w-6xl mx-auto">
-          <SectionTag no="02" en="Team" color="#FF8A5B" />
+      <section className="bg-brand-50 px-4 sm:px-10 py-24 sm:py-32 border-t border-brand-100">
+        <div className="max-w-6xl mx-auto">
+          <SectionTag no="02" en="Team" />
           <Reveal>
             <h2 className="font-anton uppercase text-ink text-5xl sm:text-7xl xl:text-8xl mb-3">
-              Our <span className="text-brand-500">team</span>
+              Our <span className="text-brand-600">team</span>
             </h2>
-            <p className="font-rounded font-bold text-ink/70 text-lg mb-12 sm:mb-16">
+            <p className="font-rounded font-bold text-ink/60 text-lg mb-12 sm:mb-16">
               個性が、価値になる。
             </p>
           </Reveal>
-          <div className="grid sm:grid-cols-2 gap-6 sm:gap-8 max-w-4xl">
+          <div className="grid sm:grid-cols-2 gap-6 max-w-4xl">
             {rest.map((m, i) => (
               <Reveal key={m.name} delay={i * 100}>
-                <article
-                  className="group h-full rounded-4xl bg-white overflow-hidden transition-all duration-300 hover:-translate-y-2"
-                  style={{ boxShadow: '0 18px 50px -28px rgba(20,34,74,0.45)' }}
-                >
-                  <div className="relative aspect-[4/5] overflow-hidden">
+                <article className="group h-full rounded-3xl bg-white border border-brand-100 overflow-hidden transition-all duration-300 hover:border-brand-300 hover:-translate-y-1">
+                  <div className="relative aspect-[4/5] overflow-hidden bg-brand-50">
                     <img
                       src={m.photo}
                       alt={`${m.name}（${m.roleJa}）`}
                       loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <span
-                      className="absolute top-4 left-4 rounded-full px-3.5 py-1.5 text-xs font-bold text-white"
-                      style={{ background: m.color }}
-                    >
-                      {m.roleJa}
-                    </span>
                   </div>
-                  <div className="p-6 sm:p-8">
-                    <p
-                      className="text-xs font-bold uppercase tracking-[0.16em] mb-1.5"
-                      style={{ color: m.color }}
-                    >
-                      {m.roleEn}
+                  <div className="p-6 sm:p-7">
+                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-600 mb-1.5">
+                      {m.roleJa}
                     </p>
                     <h3 className="font-rounded font-black text-2xl sm:text-3xl text-ink mb-3">
                       {m.name}

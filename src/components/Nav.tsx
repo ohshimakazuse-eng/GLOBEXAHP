@@ -116,7 +116,7 @@ export default function Nav() {
               onClick={() => setOpen(false)}
               className="flex items-baseline gap-4 py-5 border-b border-brand-100"
             >
-              <span className="font-anton text-sm" style={{ color: l.c }}>
+              <span className="font-anton text-sm text-brand-300">
                 {String(i + 1).padStart(2, '0')}
               </span>
               <span className="font-anton text-4xl uppercase flex-1 text-ink">{l.label}</span>
